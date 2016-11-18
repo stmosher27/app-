@@ -40,12 +40,14 @@ end
 # one step of the process.
 
 def digital_root(num)
-  ans = 0
-  if num < 10
-    return num
+  return num if num < 10
+  
+  sum = digital_root(num/10) + (num % 10)
+  
+  if sum > 10
+    sum = digital_root(sum)
   else
-  
-  
+    sum
   end
 end
 
@@ -57,16 +59,24 @@ end
 # jumble_sort("hello") => "ehllo"
 # jumble_sort("hello", ['o', 'l', 'h', 'e']) => 'ollhe'
 
-def jumble_sort(str, alphabet = nil)
-  if alphabet.nil?
-    alphabet_array = ("a".."z").to_a
+def jumble_sort(str, alphabet = ("a".."z").to_a)
+  str_arr = []
+  temp = []
+  str.chars.each do |char1|
+    if str_arr.empty?
+      str_arr << char1
+      temp << char1
+    else
+      temp.each_index do |i|
+        if alphabet.index(str_arr[i]) < alphabet.index(char1)
+          str_arr << char1
+        else
+          str_arr.insert(i,char1)
+        end
+      end
+    end
   end
-  
-  ordered_str = ""
-
-
-  
-    
+  str_arr.join("")
 end
 
 class Array
