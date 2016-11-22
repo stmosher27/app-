@@ -69,79 +69,79 @@ class Array
   end
 
   def my_zip(*arrs)
-    new_array = []
+    zipped = []
     length.times do |i|
-      new_array << [self[i]]
+      zipped << [self[i]]
       arrs.each do |el|
-        new_array[i] << el[i]
+        zipped[i] << el[i]
       end
     end
-    new_array
+
+    zipped
+
   end
 
   def my_rotate(num=1)
-    rotations = num % length
-    rotated = self.dup
-    rotations.times do
-      temp1 = rotated.shift
-      rotated << temp1
+    dups = self.dup
+    n = num % length
+    while n > 0
+      temp = dups.shift
+      dups << temp
+      n -= 1
     end
-    rotated
+    dups
   end
 
   def my_join(str = "")
-    str_join = ""
-    self.my_each do |char|
-      str_join += char
-      str_join += str unless char == self.last
+    joined = ""
+    length.times do |i|
+      if i < length-1
+        joined.concat(self[i].concat(str))
+      else
+        joined.concat(self[i])
+      end
     end
-    str_join
+    joined
   end
 
   def my_reverse
     reversed = []
-    my_each do |char|
-      reversed.unshift(char)
+    each_index do |i|
+      reversed << self[length-i-1]
     end
     reversed
+
   end
 
   #Write a monkey patch of quick sort that accepts a block
   def my_quick_sort(&prc)
-    prc ||= Proc.new { |x, y| x <=> y }
     return self if length <= 1
+    prc ||= Proc.new { |x, y| x <=> y }
 
     pivot = first
-    left = self[1..-1].my_select { |el| prc.call(el, pivot) == -1 }
-    right = self[1..-1].my_select { |el| prc.call(el, pivot) != -1 }
+    left = self[1..-1].select { |el| prc.call(el, pivot) == -1 }
+    right = self[1..-1].select { |el| prc.call(el, pivot) != -1 }
 
     left.my_quick_sort(&prc) + [pivot] + right.my_quick_sort(&prc)
+
   end
 
   # Write a monkey patch of binary search that accepts a comparison block:
   # E.g. [1, 2, 3, 4, 5, 7].my_bsearch(6) {|el, targ| el+1 <=> targ} => 4
   def my_bsearch(target, &prc)
+    return nil if length == 0
     prc ||= Proc.new { |x, y| x <=> y }
-    return nil if length <= 0
-    mid = length / 2
 
+    mid = length / 2
     case prc.call(self[mid], target)
+    when 1
+      return self.dup.take(mid).my_bsearch(target, &prc)
     when 0
       return mid
-    when 1
-      return self[0...mid].my_bsearch(target, &prc)
     else
-      result = self[mid+1..-1].my_bsearch(target, &prc)
+      result = self.dup.drop(mid+1).my_bsearch(target, &prc)
       result + mid + 1 unless result.nil?
     end
-
-    # if self[mid] > target
-    #   my_bsearch(self[first...mid])
-    # elsif self[mid] < target
-    #   my_bsearch(self[mid..last])
-    # else
-    #   return self
-    # end
   end
 
 end
