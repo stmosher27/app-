@@ -1,3 +1,4 @@
+
 class Array
 
   def my_each(&prc)

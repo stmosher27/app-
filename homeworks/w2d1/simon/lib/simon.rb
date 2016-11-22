@@ -38,7 +38,7 @@ class Simon
   end
 
   def round_success_message
-    "Good Job!"
+    p "Good Job!"
   end
 
   def game_over_message

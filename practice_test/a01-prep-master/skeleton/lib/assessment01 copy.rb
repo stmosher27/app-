@@ -7,7 +7,7 @@ class Array
   def my_inject(accumulator = nil, &block)
     i = 0
     if accumulator.nil?
-      accumulator = first
+      accumulator = self.first
       i += 1
     end
 
@@ -16,6 +16,7 @@ class Array
       i += 1
     end
     accumulator
+
   end
 end
 
@@ -30,13 +31,13 @@ def is_prime?(num)
 end
 
 def primes(num)
-  primes_array = []
+  prime_array = []
   possible_primes = 2
-  while primes_array.length < num
-    primes_array << possible_primes if is_prime?(possible_primes)
+  until prime_array.length == num
+    prime_array << possible_primes if is_prime?(possible_primes)
     possible_primes += 1
   end
-  primes_array
+  prime_array
 end
 
 # Write a recursive method that returns the first "num" factorial numbers.
@@ -45,8 +46,9 @@ end
 
 def factorials_rec(num)
   return [1] if num <= 1
-  facts = factorials_rec(num-1)
-  facts << facts.last * (num-1)
+  facs = factorials_rec(num-1)
+  facs << facs.last * (num-1)
+  facs
 end
 
 
@@ -58,12 +60,11 @@ class Array
   # [1, 3, 4, 3, 0, 3, 0].dups => { 3 => [1, 3, 5], 0 => [4, 6] }
 
   def dups
-    hash = Hash.new {|k, v| k[v] = [] }
-    each_with_index do |el, i|
-      hash[el] << i
+    dups_hash = Hash.new { |h, k| h[k] = [] }
+    self.each_with_index do |el, i|
+      dups_hash[el] << i
     end
-    hash.select {|_, v| v.count > 1 }
-
+    dups_hash.select { |_, v| v.count > 1 }
   end
 end
 
@@ -74,17 +75,18 @@ class String
   # Only include substrings of length > 1.
 
   def symmetric_substrings
-    str = []
-    chars.each_index do |i|
-      chars.each_index do |u|
-        if self[i..u] == self[i..u].reverse && self[i..u].length > 1
-          str << self[i..u]
+    pal_array = []
+    str_array = self.split("")
+    str_array.each_index do |i|
+      (i+1..self.length-1).each do |u|
+        temp = str_array[i..u]
+        if temp == temp.reverse && temp.length > 1
+          pal_array << str_array[i..u].join("")
         end
       end
     end
-    str
+    pal_array
   end
-
 end
 
 class Array
@@ -92,28 +94,34 @@ class Array
   # Write an Array#merge_sort method; it should not modify the original array.
 
   def merge_sort(&prc)
-    return self if length <= 1
     prc ||= Proc.new { |x, y| x <=> y }
 
-    mid = length / 2
-    sort_left = self.dup.take(mid).merge_sort(&prc)
-    sort_right = self.dup.drop(mid).merge_sort(&prc)
+    return self if length <= 1
 
-    Array.merge(sort_left, sort_right, &prc)
+    middle = length / 2
+    sorted_left = self.take(middle).merge_sort(&prc)
+    sorted_right = self.drop(middle).merge_sort(&prc)
+
+    Array.merge(sorted_left, sorted_right, &prc)
   end
 
   private
   def self.merge(left, right, &prc)
     merged = []
+
     until left.empty? || right.empty?
       case prc.call(left.first, right.first)
       when -1
         merged << left.shift
-      else
+      when 0
+        merged << left.shift
+      when 1
         merged << right.shift
       end
     end
-    merged += left
-    merged += right 
+      merged.concat(left)
+      merged += right
+
+      merged
   end
 end
