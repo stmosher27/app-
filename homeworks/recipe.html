@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scott Mosher</title>
+  </head>
+  <body>
+    <header>
+      <img src="https://d3c5s1hmka2e2b.cloudfront.net/uploads/topic/image/4/appacademy.png" alt="App Academy Logo">
+    <nav>
+      <ul>
+        <li><a href="ingredients">Ingredients</a> </li>
+        <li><a href="how-to">How-to</a></li>
+        <li><a href="reviews">Reviews</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <aside>
+    <h2 id="ingredients">Ingredients</h2>
+
+    <ul>
+      <li>1 box of Captian Crunch</li>
+      <li>1 giant spoon</li>
+      <li>1 giant bowl</li>
+      <li>1 gallon of milk</li>
+    </ul>
+  </aside>
+
+  <section>
+    <h1>Cap'n Crunch</h1>
+
+    <figure>
+      <img src="https://i.ytimg.com/vi/sIZp087K7aA/maxresdefault.jpg"
+            alt="Cap'n Crunch">
+      <figcaption>
+        <a href="https://en.wikipedia.org/wiki/Cap%27n_Crunch">The Story of Cap'n Crunch</a>
+      </figcaption>
+    </figure>
+
+    <h2 id="directions">Directions</h2>
+    <p>
+      Cap'n Crunch is the top cereal in the northern hemisphere and will
+      continue to be the best way to start your morning.
+    </p>
+
+    <h2 id="how-to">How-to</h2>
+    <ol>
+      <li>
+        Get your large bowl and spoon out and ready them to be used.
+      </li>
+      <li>
+        Pour your Cap'n Crunch in the bowl to the top.
+      </li>
+      <li>
+        Pour your milk until the cereal is almost all covered by milk.
+      </li>
+      <li>
+        Enjoy!
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 id="reviews">Reviews</h2>
+      <form action="/reviews" method="post">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name">
+
+        <label for="rating">Rating</label>
+        1<input type="radio" name="rating" value="1" checked>
+        2<input type="radio" name="rating" value="2">
+        3<input type="radio" name="rating" value="3">
+        4<input type="radio" name="rating" value="4">
+        5<input type="radio" name="rating" value="5">
+
+        <label for="expertise">Making Expertise</label>
+
+        <select id="expertise" name="expertise">
+          <option value="Select Making Expertise" disabled="true" selected="true">
+            Select Making Expertise</option>
+          <option value="Sometimes Make">Sometimes Cook</option>
+
+          <option value="Make Everyday">Make Everyday</option>
+
+          <option value="Make for Fun">Make for Fun</option>
+
+          <option value="Professional">Proffessional</option>
+        </select>
+
+        <label>Review
+          <textarea name="review" cols="20" rows="3"></textarea>
+        </label>
+
+        <input type="submit" value="Submit Review">
+      </form>
+    </section>
+
+  </section>
+
+  <footer>
+    <p>The top cereal</p>
+  </footer>
+  </body>
+</html>
