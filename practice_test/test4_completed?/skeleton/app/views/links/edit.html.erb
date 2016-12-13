@@ -1,0 +1,20 @@
+<h1>Edit Link</h1>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <%= error %>
+  <% end %>
+<% end %>
+
+<form action="<%= link_url(@link) %>" method="post">
+  <input type ="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="patch">
+
+  <label>Title</label>
+  <input id="Title" type="text" name="link[title]" value="<%= @link.title %>">
+
+  <label>URL</label>
+  <input id="URL" type="text" name="link[url]" value="<%= @link.url %>">
+
+  <input type="submit" value="Update Link">
+</form>
