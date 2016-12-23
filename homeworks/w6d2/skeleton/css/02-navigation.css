@@ -1,0 +1,22 @@
+.header-logo {
+  float: left;
+  border-right: 1px solid gray;
+  font-weight: 700;
+}
+
+.header-logo:hover {
+  background: black;
+}
+
+.header-list {
+  float: right;
+}
+
+.header-list > li {
+  float: left;
+  border left: 1px solid gray;
+}
+
+.header-list > li:hover {
+  background: black;
+}

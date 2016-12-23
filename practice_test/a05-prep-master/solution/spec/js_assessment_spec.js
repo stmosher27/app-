@@ -1,0 +1,1 @@
+../../skeleton/spec/js_assessment_spec.js
