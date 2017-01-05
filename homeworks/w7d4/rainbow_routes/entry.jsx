@@ -53,7 +53,6 @@ class Rainbow extends React.Component {
   }
 
   addViolet() {
-    // your code here
     this.props.router.push('/violet');
   }
 }
